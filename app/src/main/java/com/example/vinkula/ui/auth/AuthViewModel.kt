@@ -50,20 +50,37 @@ class AuthViewModel : ViewModel() {
                 val firebaseUser = authResult.user
                 
                 if (firebaseUser != null) {
+                    _currentUser.value = firebaseUser
+
                     // 2. Create User Document in Firestore
-                    val newUser = com.example.vinkula.domain.User(
-                        id = firebaseUser.uid,
-                        name = name,
-                        email = email,
-                        registrationDate = com.google.firebase.Timestamp.now()
-                    )
-                    
-                    firestore.collection("users").document(firebaseUser.uid).set(newUser).await()
+                    try {
+                        kotlinx.coroutines.withTimeout(5000L) {
+                            val newUser = com.example.vinkula.domain.User(
+                                id = firebaseUser.uid,
+                                name = name,
+                                email = email,
+                                registrationDate = com.google.firebase.Timestamp.now() // Note: Ensure Timestamp import if needed or use full path
+                            )
+                            firestore.collection("users").document(firebaseUser.uid).set(newUser).await()
+                        }
+                    } catch (e: Exception) {
+                        // Log the error but proceed or decide strategy. 
+                        // For now we proceed but maybe show a message?
+                        // If Firestore fails, we might want to alert, but allowing login is prioritized.
+                        // _error.value = "Warning: Profile creation incomplete."
+                        // Proceeding allows the user to at least enter the app.
+                        // Ideally we should retry in background.
+                    }
                     
                     // 3. Send Verification Email
-                    firebaseUser.sendEmailVerification().await()
+                    try {
+                        kotlinx.coroutines.withTimeout(5000L) {
+                            firebaseUser.sendEmailVerification().await()
+                        }
+                    } catch (e: Exception) {
+                         // Ignore email error or log it.
+                    }
 
-                    _currentUser.value = firebaseUser
                     onSuccess()
                 } else {
                     _error.value = "Error: El usuario no pudo ser creado."

@@ -9,8 +9,8 @@ interface NavBarProps {
 const NavBar: React.FC<NavBarProps> = ({ currentScreen, onNavigate }) => {
   const navItems = [
     { id: Screen.Home, icon: 'home', label: 'Inicio' },
-    { id: Screen.Budget, icon: 'pie_chart', label: 'Presupuesto' },
     { id: Screen.Shared, icon: 'groups', label: 'Compartidos' },
+    { id: Screen.Budget, icon: 'pie_chart', label: 'Presupuesto' },
     { id: Screen.Statistics, icon: 'bar_chart', label: 'Estadísticas' },
     { id: Screen.Settings, icon: 'settings', label: 'Ajustes' },
   ];
@@ -26,24 +26,22 @@ const NavBar: React.FC<NavBarProps> = ({ currentScreen, onNavigate }) => {
               onClick={() => onNavigate(item.id)}
               className="group flex flex-col items-center justify-center gap-1 w-16"
             >
-              <span 
-                className={`material-symbols-outlined text-[26px] transition-colors duration-200 ${
-                  isActive 
-                    ? 'text-[#137fec]' 
+              <span
+                className={`material-symbols-outlined text-[26px] transition-colors duration-200 ${isActive
+                    ? 'text-[#137fec]'
                     : 'text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300'
-                }`}
-                style={{ 
+                  }`}
+                style={{
                   fontVariationSettings: "'FILL' 1, 'wght' 400"
                 }}
               >
                 {item.icon}
               </span>
-              <span 
-                className={`text-[10px] font-medium tracking-wide transition-colors duration-200 ${
-                  isActive 
-                    ? 'text-[#137fec] font-semibold' 
+              <span
+                className={`text-[10px] font-medium tracking-wide transition-colors duration-200 ${isActive
+                    ? 'text-[#137fec] font-semibold'
                     : 'text-gray-400 dark:text-gray-500'
-                }`}
+                  }`}
               >
                 {item.label}
               </span>
