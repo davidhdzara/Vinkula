@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import AddExpense from '../components/AddExpense';
+import Transfer from '../components/Transfer';
 
 const Home: React.FC = () => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showExpenseModal, setShowExpenseModal] = useState(false);
+  const [showTransferModal, setShowTransferModal] = useState(false);
 
   const handleOpenExpense = () => {
     setShowAddModal(false);
     setShowExpenseModal(true);
+  };
+
+  const handleOpenTransfer = () => {
+    setShowAddModal(false);
+    setShowTransferModal(true);
   };
 
   const handleSaveExpense = (amount: number, category: string, note: string) => {
@@ -52,7 +59,7 @@ const Home: React.FC = () => {
         <div className="flex justify-between gap-2">
           {[
             { icon: 'add', label: 'Añadir', action: () => setShowAddModal(true) },
-            { icon: 'swap_horiz', label: 'Transferir' },
+            { icon: 'swap_horiz', label: 'Transferir', action: () => setShowTransferModal(true) },
             { icon: 'bar_chart', label: 'Análisis' },
             { icon: 'savings', label: 'Metas' }
           ].map((action, idx) => (
@@ -213,7 +220,10 @@ const Home: React.FC = () => {
                     </button>
 
                     {/* Transfer */}
-                    <button className="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-[#1c2630] border border-transparent hover:bg-gray-50 dark:hover:bg-white/5 hover:border-gray-100 dark:hover:border-gray-700 transition-all group shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none">
+                    <button 
+                        onClick={handleOpenTransfer}
+                        className="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-[#1c2630] border border-transparent hover:bg-gray-50 dark:hover:bg-white/5 hover:border-gray-100 dark:hover:border-gray-700 transition-all group shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none"
+                    >
                         <div className="flex items-center gap-4">
                             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 dark:bg-blue-900/20 text-[#137fec]">
                                 <span className="material-symbols-outlined">swap_horiz</span>
@@ -235,6 +245,13 @@ const Home: React.FC = () => {
         <AddExpense 
             onClose={() => setShowExpenseModal(false)} 
             onSave={handleSaveExpense}
+        />
+      )}
+
+      {/* Transfer Full Screen Modal */}
+      {showTransferModal && (
+        <Transfer 
+            onClose={() => setShowTransferModal(false)}
         />
       )}
     </div>
