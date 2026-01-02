@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1087913469158",
+    "project_id": "vinkula-e4578",
+    "storage_bucket": "vinkula-e4578.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087913469158:android:4e83b584d83f5236a74727",
+        "android_client_info": {
+          "package_name": "com.example.vinkula"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwZ5UqGsZb3HzP2sENPO1Ug5eFmLa7Zl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

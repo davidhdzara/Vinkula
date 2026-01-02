@@ -1,0 +1,7 @@
+{
+  "name": "Finanzas Personales AI",
+  "description": "Una aplicación completa de gestión financiera personal con seguimiento de presupuesto, análisis de gastos y un asistente de IA integrado impulsado por Gemini.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
