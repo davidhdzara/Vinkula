@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import AddExpense from '../components/AddExpense';
 import Transfer from '../components/Transfer';
+import AccountDetails from '../components/AccountDetails';
 
 const Home: React.FC = () => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showExpenseModal, setShowExpenseModal] = useState(false);
   const [showTransferModal, setShowTransferModal] = useState(false);
+  const [selectedAccount, setSelectedAccount] = useState<{name: string, balance: string} | null>(null);
 
   const handleOpenExpense = () => {
     setShowAddModal(false);
@@ -22,6 +24,20 @@ const Home: React.FC = () => {
     console.log("Saved:", amount, category, note);
     setShowExpenseModal(false);
   };
+
+  const handleAccountClick = (name: string, balance: string) => {
+    setSelectedAccount({ name, balance });
+  };
+
+  if (selectedAccount) {
+    return (
+        <AccountDetails 
+            accountName={selectedAccount.name}
+            balance={selectedAccount.balance}
+            onBack={() => setSelectedAccount(null)}
+        />
+    );
+  }
 
   return (
     <div className="flex flex-col gap-6 px-4 pt-2 pb-6">
@@ -86,7 +102,10 @@ const Home: React.FC = () => {
         
         <div className="flex flex-col gap-3">
           {/* Dinero en Efectivo */}
-          <div className="flex items-center justify-between p-4 rounded-[1.25rem] bg-white dark:bg-[#1c2630] shadow-sm border border-transparent hover:border-gray-100 dark:hover:border-gray-700 transition-all cursor-pointer group">
+          <div 
+            onClick={() => handleAccountClick('Dinero en Efectivo', '$ 550.000')}
+            className="flex items-center justify-between p-4 rounded-[1.25rem] bg-white dark:bg-[#1c2630] shadow-sm border border-transparent hover:border-gray-100 dark:hover:border-gray-700 transition-all cursor-pointer group"
+          >
             <div className="flex items-center gap-4">
               <div className="flex size-12 items-center justify-center rounded-2xl bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400">
                 <span className="material-symbols-outlined text-[24px]">payments</span>
@@ -106,7 +125,10 @@ const Home: React.FC = () => {
           </div>
 
           {/* Cuenta Ahorros */}
-          <div className="flex items-center justify-between p-4 rounded-[1.25rem] bg-white dark:bg-[#1c2630] shadow-sm border border-transparent hover:border-gray-100 dark:hover:border-gray-700 transition-all cursor-pointer group">
+          <div 
+            onClick={() => handleAccountClick('Cuenta Ahorros', '$ 5.200.000')}
+            className="flex items-center justify-between p-4 rounded-[1.25rem] bg-white dark:bg-[#1c2630] shadow-sm border border-transparent hover:border-gray-100 dark:hover:border-gray-700 transition-all cursor-pointer group"
+          >
             <div className="flex items-center gap-4">
               <div className="flex size-12 items-center justify-center rounded-2xl bg-gray-50 text-gray-600 dark:bg-white/5 dark:text-gray-300 border border-gray-100 dark:border-gray-700">
                  <span className="material-symbols-outlined text-[24px]">account_balance</span>
@@ -123,7 +145,10 @@ const Home: React.FC = () => {
           </div>
 
           {/* Billetera Digital */}
-          <div className="flex items-center justify-between p-4 rounded-[1.25rem] bg-white dark:bg-[#1c2630] shadow-sm border border-transparent hover:border-gray-100 dark:hover:border-gray-700 transition-all cursor-pointer group">
+          <div 
+            onClick={() => handleAccountClick('Billetera Digital', '$ 850.000')}
+            className="flex items-center justify-between p-4 rounded-[1.25rem] bg-white dark:bg-[#1c2630] shadow-sm border border-transparent hover:border-gray-100 dark:hover:border-gray-700 transition-all cursor-pointer group"
+          >
             <div className="flex items-center gap-4">
               <div className="flex size-12 items-center justify-center rounded-2xl bg-[#394a5a] text-white">
                  <span className="material-symbols-outlined text-[24px]">qr_code_scanner</span>
@@ -140,7 +165,10 @@ const Home: React.FC = () => {
           </div>
 
            {/* Tarjeta Crédito */}
-           <div className="flex items-center justify-between p-4 rounded-[1.25rem] bg-white dark:bg-[#1c2630] shadow-sm border border-transparent hover:border-gray-100 dark:hover:border-gray-700 transition-all cursor-pointer group">
+           <div 
+             onClick={() => handleAccountClick('Tarjeta Crédito', '-$ 1.200.000')}
+             className="flex items-center justify-between p-4 rounded-[1.25rem] bg-white dark:bg-[#1c2630] shadow-sm border border-transparent hover:border-gray-100 dark:hover:border-gray-700 transition-all cursor-pointer group"
+           >
             <div className="flex items-center gap-4">
               <div className="flex size-12 items-center justify-center rounded-2xl bg-[#1c2630] text-white">
                  <span className="material-symbols-outlined text-[24px]">credit_card</span>
